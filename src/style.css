@@ -1,3 +1,7 @@
+body {
+  font-family: "Comic Sans MS", sans-serif;
+}
+
 .container {
   font-family: "Comic Sans MS", sans-serif;
   max-width: 1140px;
@@ -8,7 +12,7 @@
 
 .reader {
   width: 500px;
-  height: 500px;
+  height: 300px;
   background-color: cornflowerblue;
   justify-content: center;
   color:  white;
@@ -36,6 +40,8 @@ input[type="file"] {
 }
 
 input[type="submit"] {
+  font-family: "Comic Sans MS", sans-serif;
+  color: white;
   cursor: pointer;
   width: 200px;
   height: 25px;
