@@ -1,8 +1,7 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin  = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/main.ts',
@@ -14,7 +13,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js'],
     },
     devServer: {
-        contentBase: 'dist',
+        static: './dist',
         compress: true,
         port: 3000,
     },
@@ -38,15 +37,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: '**/*',
-                    context: path.resolve(__dirname, 'src', 'assets'),
-                    to: './assets',
-                },
-            ],
-        }),
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             filename: 'index.html',
