@@ -31,6 +31,7 @@ module.exports = {
                         options: {},
                     },
                     'css-loader',
+                    'sass-loader',
                 ],
             },
         ],
