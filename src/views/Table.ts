@@ -5,19 +5,27 @@ import em from "../components/EventManager";
 
 export default class Table {
 
+    static instance: Table | null = null;
     private readonly mountSelector: string | undefined;
     private table: Element | null | undefined;
     private root: Element | null = document.querySelector('.table-container');
     private rawText: string = '';
     private rows: Array<Row> = [];
 
-    constructor(tableSelector: string) {
+    private constructor(tableSelector: string) {
         this.mountSelector = tableSelector;
         document.querySelector('.to-load')?.addEventListener('click', () => {
             this.switch();
             this.clearTable();
             em.notify('closeTable', null);
         });
+    }
+
+    static getInstance(tableSelector: string) {
+        if(!this.instance) {
+            return new Table(tableSelector);
+        }
+        else return this.instance;
     }
 
     private parseData(): Array<Array<String>> {

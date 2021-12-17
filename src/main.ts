@@ -5,7 +5,7 @@ import em from "./components/EventManager";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const tableReader = TableReader.getInstance();
-    const table = new Table('#app');
+    const table = Table.getInstance('#app');
     em.subscribe(tableReader, 'closeTable');
     em.subscribe(table, 'loadText');
 });
