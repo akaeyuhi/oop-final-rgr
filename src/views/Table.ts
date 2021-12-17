@@ -18,6 +18,11 @@ export default class Table {
       this.clearTable();
       em.notify('closeTable', null);
     });
+    document.querySelector('.save-button')?.addEventListener('click', (e) => {
+      const target = <HTMLButtonElement>e?.target;
+      const a =  <HTMLButtonElement>target.children[0];
+      a.click();
+    });
   }
 
   static getInstance(tableSelector: string) {
@@ -35,6 +40,12 @@ export default class Table {
         return row.split('\t').filter((cell) => cell !== '' && cell !== '\t' && cell !== '\r');
       })
       .filter((row) => row.length > 0);
+  }
+
+  private setURL() {
+    const blob = new Blob([this.rawText], {type: 'text/plain'});
+    document.querySelector('.save')?.setAttribute('href', URL.createObjectURL(blob));
+    document.querySelector('.save')?.setAttribute('download', 'table.txt');
   }
 
   private generateRows() {
@@ -69,6 +80,7 @@ export default class Table {
   public notify(event: string, data: string): void {
     if (event === 'loadText') {
       this.rawText = data;
+      this.setURL();
       this.generateRows();
       this.render();
       this.switch();
