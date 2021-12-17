@@ -14,4 +14,8 @@ export default abstract class Row {
   public pushNullCell(): void {
     this.cells.push(new NullCell(''));
   }
+
+  get textCells() {
+    return this.rawCells;
+  }
 }

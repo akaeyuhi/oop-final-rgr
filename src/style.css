@@ -72,7 +72,10 @@ th,
 td,
 tr {
   border: 1px solid cornflowerblue;
-  padding: 5px;
+}
+
+td {
+  padding: 20px;
 }
 
 table {

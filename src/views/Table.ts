@@ -18,11 +18,6 @@ export default class Table {
       this.clearTable();
       em.notify('closeTable', null);
     });
-    document.querySelector('.save-button')?.addEventListener('click', (e) => {
-      const target = <HTMLButtonElement>e?.target;
-      const a =  <HTMLButtonElement>target.children[0];
-      a.click();
-    });
   }
 
   static getInstance(tableSelector: string) {
@@ -43,7 +38,8 @@ export default class Table {
   }
 
   private setURL() {
-    const blob = new Blob([this.rawText], {type: 'text/plain'});
+    const textTofile = this.rows.map((row) => row.textCells.join('\t')).join('\n');
+    const blob = new Blob([textTofile], { type: 'text/plain' });
     document.querySelector('.save')?.setAttribute('href', URL.createObjectURL(blob));
     document.querySelector('.save')?.setAttribute('download', 'table.txt');
   }
@@ -80,8 +76,8 @@ export default class Table {
   public notify(event: string, data: string): void {
     if (event === 'loadText') {
       this.rawText = data;
-      this.setURL();
       this.generateRows();
+      this.setURL();
       this.render();
       this.switch();
     }
