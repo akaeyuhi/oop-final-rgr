@@ -1,5 +1,7 @@
 import Cell from "./Cell";
 
-class SortCell extends Cell {
-
+export default class SortCell extends Cell {
+    render(): string {
+        return `<th>${this.data}</th>`;
+    }
 }
