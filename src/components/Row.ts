@@ -1,4 +1,5 @@
 import Cell from "./Cell";
+import NullCell from "./NullCell";
 
 export default abstract class Row {
     abstract cells: Array<Cell>;
@@ -10,5 +11,7 @@ export default abstract class Row {
 
     abstract parseCells(): any
     abstract render(): string
-
+    public pushNullCell(): void {
+        this.cells.push(new NullCell(''));
+    }
 }
