@@ -3,9 +3,19 @@ export default class TableReader {
     private isShown: boolean = false;
     private reader: FileReader = new FileReader();
     public isSubmitted: boolean = false;
+    static instance: TableReader | null = null;
 
-    constructor() {
+    private constructor() {
         this.render();
+    }
+
+    static getInstance(){
+        if(this.instance) {
+            return this.instance;
+        }
+        else {
+            return new TableReader();
+        }
     }
 
     private submitHandler(event: Event | undefined) {

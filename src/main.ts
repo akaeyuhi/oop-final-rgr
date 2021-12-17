@@ -3,7 +3,7 @@ import TableReader from "./components/TableReader";
 import './style.css';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const tableReader = new TableReader();
+    const tableReader = TableReader.getInstance();
     tableReader.show();
     const text = await tableReader.getRawText();
     console.log(text);
