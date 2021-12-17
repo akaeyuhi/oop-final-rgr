@@ -67,7 +67,7 @@ export default class Table {
         this.rows = [];
     }
 
-    public notify(event: string, data: string) {
+    public notify(event: string, data: string): void {
         if(event === 'loadText') {
             this.rawText = data;
             this.generateRows();
