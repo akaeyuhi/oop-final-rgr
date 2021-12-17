@@ -1,7 +1,7 @@
-import FirstRow from "./FirstRow";
-import Row from "./Row";
-import DataRow from "./DataRow";
-import em from "./EventManager";
+import FirstRow from "../components/FirstRow";
+import Row from "../components/Row";
+import DataRow from "../components/DataRow";
+import em from "../components/EventManager";
 
 export default class Table {
 

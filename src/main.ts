@@ -1,5 +1,5 @@
-import Table from "./components/Table";
-import TableReader from "./components/TableReader";
+import Table from "./views/Table";
+import TableReader from "./views/TableReader";
 import './style.css';
 import em from "./components/EventManager";
 

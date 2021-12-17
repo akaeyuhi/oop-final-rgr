@@ -1,4 +1,4 @@
-import em from './EventManager';
+import em from '../components/EventManager';
 
 export default class TableReader {
     private element: Element | null = document.querySelector('.reader');
