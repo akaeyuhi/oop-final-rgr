@@ -12,16 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "css": "^3.0.0",
-    "css-loader": "^6.5.1",
     "cssnano": "^5.0.13",
     "file-loader": "^6.2.0",
-    "node-sass": "^7.0.0",
     "postcss": "^8.4.5",
     "postcss-cssnext": "^3.1.1",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.1",
-    "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
     "sugarss": "^4.0.1",
     "ts-loader": "^9.2.6",
@@ -36,7 +33,10 @@
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.0",
+    "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.4.5"
+    "mini-css-extract-plugin": "^2.4.5",
+    "node-sass": "^7.0.0",
+    "sass-loader": "^12.4.0"
   }
 }
