@@ -1,14 +1,12 @@
 import Table from "./components/Table";
 import TableReader from "./components/TableReader";
 import './style.css';
+import em from "./components/EventManager";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const tableReader = TableReader.getInstance();
-    tableReader.getRawText().then(text => {
-        tableReader.switch();
-        const table: Table = new Table(text as string);
-        table.render('#app');
-    })
-
+    const table = new Table('#app');
+    em.subscribe(tableReader, 'closeTable');
+    em.subscribe(table, 'loadText');
 });
 

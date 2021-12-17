@@ -1,17 +1,23 @@
 import FirstRow from "./FirstRow";
 import Row from "./Row";
 import DataRow from "./DataRow";
+import em from "./EventManager";
 
 export default class Table {
 
-    private mountSelector: string | undefined;
+    private readonly mountSelector: string | undefined;
     private table: Element | null | undefined;
-    private rawText: string;
+    private root: Element | null = document.querySelector('.table-container');
+    private rawText: string = '';
     private rows: Array<Row> = [];
 
-    constructor(textParse: string) {
-        this.rawText = textParse;
-        this.generateRows();
+    constructor(tableSelector: string) {
+        this.mountSelector = tableSelector;
+        document.querySelector('.to-load')?.addEventListener('click', () => {
+            this.switch();
+            this.clearTable();
+            em.notify('closeTable', null);
+        });
     }
 
     private parseData(): Array<Array<String>> {
@@ -32,15 +38,40 @@ export default class Table {
         table.forEach(row => {
            this.rows?.push(new DataRow(row as Array<string>));
         });
+        this.normalizeRows();
     }
 
-    public render(mountSelector: string) {
-        this.mountSelector = mountSelector;
+    private normalizeRows() {
+        this.rows?.forEach(row => {
+            while(row.cells.length < this.rows[0].cells.length) {
+                row.pushNullCell();
+            }
+        });
+    }
+
+    private switch() {
+        this.root?.classList.toggle('visible');
+    }
+
+    private clearTable(){
+        this.table!.innerHTML = '';
+        this.rawText = '';
+        this.rows = [];
+    }
+
+    public notify(event: string, data: string) {
+        if(event === 'loadText') {
+            this.rawText = data;
+            this.generateRows();
+            this.render();
+            this.switch();
+        }
+    }
+
+    private render() {
         this.table = document.querySelector(`${this.mountSelector}`);
         this.rows?.forEach(row => {
             this.table?.insertAdjacentHTML('beforeend', row.render());
         });
-        console.dir(this.rows);
-        this.table?.classList.toggle('table');
     }
 }
