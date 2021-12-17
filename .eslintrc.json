@@ -1,69 +1,43 @@
 {
   "root": true,
-  "ignorePatterns": [
-      "projects/**/*"
-  ],
-  "plugins": [
-      "@typescript-eslint",
-      "prettier",
-      "simple-import-sort",
-      "import",
-      "prefer-arrow",
-      "jsdoc"
-  ],
+  "ignorePatterns": ["projects/**/*"],
+  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "import", "prefer-arrow", "jsdoc"],
   "overrides": [
     {
-      "files": [
-          "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-            "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
-      "extends": [
-          "eslint:recommended",
-          "plugin:@typescript-eslint/eslint-recommended",
-          "plugin:@typescript-eslint/recommended"
-      ],
+      "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
       "rules": {
         "@typescript-eslint/dot-notation": "off",
         "@typescript-eslint/naming-convention": [
-            "error",
+          "error",
           {
             "selector": "default",
-            "format": [
-                "camelCase"
-            ],
+            "format": ["camelCase"],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
           },
           {
             "selector": "variable",
-            "format": [
-                "camelCase",
-                "UPPER_CASE"
-            ],
+            "format": ["camelCase", "UPPER_CASE"],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
           },
           {
             "selector": "typeLike",
-            "format": [
-                "PascalCase"
-            ]
+            "format": ["PascalCase"]
           },
           {
             "selector": "enumMember",
-            "format": [
-                "PascalCase"
-            ]
+            "format": ["PascalCase"]
           }
         ],
         "complexity": "error",
         "max-len": [
-            "error",
+          "error",
           {
             "code": 140
           }
@@ -73,25 +47,9 @@
         "import/no-unresolved": "off",
         "simple-import-sort/exports": "error",
         "simple-import-sort/imports": [
-            "error",
+          "error",
           {
-            "groups": [
-              [
-                  "^\\u0000"
-              ],
-              [
-                  "^@?(?!app)\\w"
-              ],
-              [
-                  "^@app?\\w"
-              ],
-              [
-                  "^[^.]"
-              ],
-              [
-                  "^\\."
-              ]
-            ]
+            "groups": [["^\\u0000"], ["^@?(?!app)\\w"], ["^@app?\\w"], ["^[^.]"], ["^\\."]]
           }
         ],
         "sort-imports": "off",
@@ -100,7 +58,7 @@
         "import/no-duplicates": "error",
         "prefer-arrow-callback": "off",
         "prefer-arrow/prefer-arrow-functions": [
-            "error",
+          "error",
           {
             "disallowPrototype": true,
             "singleReturnOnly": false,
@@ -112,12 +70,8 @@
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
         "no-invalid-this": "off",
-        "@typescript-eslint/no-invalid-this": [
-            "warn"
-        ],
-        "@typescript-eslint/explicit-function-return-type": [
-            "error"
-        ]
+        "@typescript-eslint/no-invalid-this": ["warn"],
+        "@typescript-eslint/explicit-function-return-type": ["error"]
       }
     }
   ]

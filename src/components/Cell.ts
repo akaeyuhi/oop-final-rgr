@@ -1,9 +1,9 @@
 export default abstract class Cell {
-    data: any;
+  data: any;
 
-    constructor(data: any) {
-        this.data = data;
-    }
+  constructor(data: any) {
+    this.data = data;
+  }
 
-    abstract render(): string
+  abstract render(): string;
 }
