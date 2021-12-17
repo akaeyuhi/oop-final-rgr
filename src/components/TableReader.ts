@@ -22,7 +22,7 @@ export default class TableReader {
         event?.preventDefault();
         const target = (<HTMLFormElement>event?.target);
         const file: any = (target.children[1] as unknown as FileList);
-        this.reader.readAsText(file.files[0]);
+        this.reader.readAsText(file.files[0], 'utf-8');
         this.isSubmitted = true;
     }
 
@@ -34,7 +34,7 @@ export default class TableReader {
         }));
     }
 
-    public show() {
+    public switch() {
         this.element?.classList.toggle('visible');
         this.isShown = !this.isShown;
     }
