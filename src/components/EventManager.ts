@@ -7,7 +7,7 @@ interface IEE {
   notify(event: string, data: any);
 }
 
-class EventManager {
+class EventManager implements IEE{
   private listeners: Map<ITable | IReader, string> = new Map<ITable | IReader, string>();
 
   public subscribe(this: EventManager, object: ITable | IReader, event: string) {
