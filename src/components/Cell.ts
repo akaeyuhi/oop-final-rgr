@@ -1,7 +1,12 @@
-export default abstract class Cell {
+export interface ICell {
+  data: any,
+  render(): string
+}
+
+export abstract class Cell implements ICell{
   data: any;
 
-  constructor(data: any) {
+  protected constructor(data: any) {
     this.data = data;
   }
 

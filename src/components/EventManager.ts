@@ -1,24 +1,31 @@
-import TableReader from '../views/TableReader';
-import Table from '../views/Table';
+import {IReader} from '../views/TableReader';
+import {ITable} from '../views/Table';
+
+interface IEE {
+  subscribe(object: ITable | IReader, event: string),
+  unsubscribe(object: ITable | IReader),
+  notify(event: string, data: any),
+}
 
 class EventManager {
-  private listeners: Map<Table | TableReader, string> = new Map<any, any>();
+  private listeners: Map<ITable | IReader, string> = new Map<ITable | IReader, string>();
 
-  public subscribe(object: any, event: string) {
+  public subscribe(this: EventManager, object: ITable | IReader, event: string) {
     this.listeners.set(object, event);
   }
 
-  public unsubsribe(object: any) {
+  public unsubscribe(this: EventManager, object: ITable | IReader) {
     this.listeners.delete(object);
   }
 
-  public notify(event: string, data: any) {
+  public notify(this: EventManager, event: string, data: any) {
     this.listeners.forEach((value, key) => {
       if (value === event) {
         key.notify(event, data);
+        console.log(key);
       }
     });
   }
 }
-const em = new EventManager();
+const em: IEE = new EventManager();
 export default em;

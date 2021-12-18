@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "declaration": true,

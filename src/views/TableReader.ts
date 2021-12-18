@@ -1,11 +1,15 @@
 import em from '../components/EventManager';
 
-export default class TableReader {
+export interface IReader {
+  notify(event: string),
+}
+
+
+export class TableReader implements IReader{
   private element: Element | null = document.querySelector('.reader');
   private root: Element | null = document.querySelector('.reader-container');
   private reader: FileReader = new FileReader();
-  public isSubmitted: boolean = false;
-  static instance: TableReader | null = null;
+  static instance: IReader | null = null;
 
   private constructor() {
     this.render();
@@ -19,18 +23,17 @@ export default class TableReader {
     }
   }
 
-  private async submitHandler(event: Event | undefined) {
+  private async submitHandler(this: TableReader, event: Event | undefined) {
     event?.preventDefault();
     const target = <HTMLFormElement>event?.target;
     const file: any = target.children[1] as unknown as FileList;
     this.reader.readAsText(file.files[0], 'utf-8');
-    this.isSubmitted = true;
     const text = await this.getRawText();
     em.notify('loadText', text);
     this.switch();
   }
 
-  private getRawText() {
+  private getRawText(this: TableReader) {
     return new Promise((resolve) => {
       this.reader.onload = (e) => {
         resolve(e.target?.result);
@@ -38,7 +41,7 @@ export default class TableReader {
     });
   }
 
-  private switch() {
+  private switch(this: TableReader) {
     this.root?.classList.toggle('visible-flex');
   }
 
@@ -46,7 +49,7 @@ export default class TableReader {
     if (event === 'closeTable') this.switch();
   }
 
-  public render() {
+  private render(this: TableReader) {
     this.element!.innerHTML = '';
     this.element?.insertAdjacentHTML(
       'beforeend',

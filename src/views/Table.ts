@@ -1,15 +1,19 @@
 import FirstRow from '../components/FirstRow';
-import Row from '../components/Row';
+import {Row} from '../components/Row';
 import DataRow from '../components/DataRow';
 import em from '../components/EventManager';
 
-export default class Table {
+export interface ITable {
+  notify(event: string, data: string)
+}
+
+export class Table implements ITable{
   static instance: Table | null = null;
   private readonly mountSelector: string | undefined;
   private table: Element | null | undefined;
   private root: Element | null = document.querySelector('.table-container');
   private rawText: string = '';
-  private rows: Array<Row> = [];
+  private rows: Row[] = [];
 
   private constructor(tableSelector: string) {
     this.mountSelector = tableSelector;
@@ -26,7 +30,7 @@ export default class Table {
     } else return this.instance;
   }
 
-  public notify(event: string, data: string): void {
+  public notify(event: string, data: string, ): void {
     this.rawText = data;
     this.generateRows();
     this.setURL();
@@ -35,14 +39,14 @@ export default class Table {
     this.switch();
   }
 
-  render() {
+  private render(this: Table) {
     this.table = document.querySelector(`${this.mountSelector}`);
     this.rows?.forEach((row) => {
       this.table?.insertAdjacentHTML('beforeend', row.render());
     });
   }
 
-  private parseData(): Array<Array<String>> {
+  private parseData(this: Table): string[][] {
     return this.rawText
       .split('\n')
       .map((row) => {
@@ -53,13 +57,13 @@ export default class Table {
       .filter((row) => row.length > 0);
   }
 
-  private setURL() {
+  private setURL(this: Table) {
     const textFile = this.rows.map((row) => row.textCells.join('\t')).join('\n');
     const blob = new Blob([textFile], { type: 'text/plain' });
     document.querySelector('.save')?.setAttribute('href', URL.createObjectURL(blob));
   }
 
-  private generateRows() {
+  private generateRows(this: Table) {
     const table = this.parseData();
     const firstRow = new FirstRow(table[0] as Array<string>);
     this.rows?.push(firstRow);
@@ -70,7 +74,7 @@ export default class Table {
     this.normalizeRows();
   }
 
-  private normalizeRows() {
+  private normalizeRows(this: Table) {
     this.rows?.forEach((row) => {
       while (row.cells.length < this.rows[0].cells.length) {
         row.pushNullCell();
@@ -78,11 +82,11 @@ export default class Table {
     });
   }
 
-  private switch() {
+  private switch(this: Table) {
     this.root?.classList.toggle('visible');
   }
 
-  private setClick() {
+  private setClick(this: Table) {
     document.querySelector('#sort')?.addEventListener('click', (event) => {
       if ((<HTMLElement>event.target).tagName === 'TH') {
         this.sortTable(Array.prototype.indexOf.call((<HTMLElement>event.target).parentNode?.children, event.target));
@@ -90,14 +94,13 @@ export default class Table {
     });
   }
 
-  private clearTable() {
-    em.unsubsribe(this.rows[0]);
+  private clearTable(this: Table) {
     this.table!.innerHTML = '';
     this.rawText = '';
     this.rows = [];
   }
 
-  private sortTable(index: number) {
+  private sortTable(this: Table, index: number) {
     let rows: HTMLCollectionOf<Element>,
       switching: boolean,
       i: number,
