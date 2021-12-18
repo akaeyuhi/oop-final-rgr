@@ -16,8 +16,7 @@ export default class FirstRow extends Row {
       this.cells.unshift(new SortCell('№'));
     }
   }
-
   render(): string {
-    return `<tr>${this.cells.map((cell) => cell.render()).join('\n')}</tr>`;
+    return `<tr id="sort">${this.cells.map((cell) => cell.render()).join('\n')}</tr>`;
   }
 }

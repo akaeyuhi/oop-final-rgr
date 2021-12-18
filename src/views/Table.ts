@@ -26,6 +26,22 @@ export default class Table {
     } else return this.instance;
   }
 
+  public notify(event: string, data: string): void {
+    this.rawText = data;
+    this.generateRows();
+    this.setURL();
+    this.render();
+    this.setClick();
+    this.switch();
+  }
+
+  render() {
+    this.table = document.querySelector(`${this.mountSelector}`);
+    this.rows?.forEach((row) => {
+      this.table?.insertAdjacentHTML('beforeend', row.render());
+    });
+  }
+
   private parseData(): Array<Array<String>> {
     return this.rawText
       .split('\n')
@@ -38,10 +54,9 @@ export default class Table {
   }
 
   private setURL() {
-    const textTofile = this.rows.map((row) => row.textCells.join('\t')).join('\n');
-    const blob = new Blob([textTofile], { type: 'text/plain' });
+    const textFile = this.rows.map((row) => row.textCells.join('\t')).join('\n');
+    const blob = new Blob([textFile], { type: 'text/plain' });
     document.querySelector('.save')?.setAttribute('href', URL.createObjectURL(blob));
-    document.querySelector('.save')?.setAttribute('download', 'table.txt');
   }
 
   private generateRows() {
@@ -67,26 +82,72 @@ export default class Table {
     this.root?.classList.toggle('visible');
   }
 
+  private setClick() {
+    document.querySelector('#sort')?.addEventListener('click', (event) => {
+      if ((<HTMLElement>event.target).tagName === 'TH') {
+        this.sortTable(Array.prototype.indexOf.call((<HTMLElement>event.target).parentNode?.children, event.target));
+      }
+    });
+  }
+
   private clearTable() {
+    em.unsubsribe(this.rows[0]);
     this.table!.innerHTML = '';
     this.rawText = '';
     this.rows = [];
   }
 
-  public notify(event: string, data: string): void {
-    if (event === 'loadText') {
-      this.rawText = data;
-      this.generateRows();
-      this.setURL();
-      this.render();
-      this.switch();
+  private sortTable(index: number) {
+    let rows: HTMLCollectionOf<Element>,
+      switching: boolean,
+      i: number,
+      x: Element,
+      y: Element,
+      shouldSwitch: boolean = false,
+      dir: string,
+      switchCount = 0;
+    switching = true;
+    dir = 'asc';
+    const sort = (index: number, dir: string): boolean | undefined => {
+      let innerX: string | number = x.innerHTML.toLowerCase();
+      let innerY: string | number = y.innerHTML.toLowerCase();
+      if (index === 0) {
+        innerX = +innerX;
+        innerY = +innerY;
+      }
+      if (dir === 'asc') {
+        if (innerX > innerY) {
+          return true;
+        }
+      } else if (dir === 'desc') {
+        if (innerX < innerY) {
+          return true;
+        }
+      }
+    };
+    while (switching) {
+      switching = false;
+      rows = (<HTMLTableElement>this.table)?.rows;
+      for (i = 1; i < rows.length - 1; i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName('TD')[index];
+        y = rows[i + 1].getElementsByTagName('TD')[index];
+        const result = sort(index, dir);
+        if (result) {
+          shouldSwitch = result;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode?.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchCount++;
+      } else {
+        if (switchCount == 0 && dir == 'asc') {
+          dir = 'desc';
+          switching = true;
+        }
+      }
     }
-  }
-
-  private render() {
-    this.table = document.querySelector(`${this.mountSelector}`);
-    this.rows?.forEach((row) => {
-      this.table?.insertAdjacentHTML('beforeend', row.render());
-    });
   }
 }

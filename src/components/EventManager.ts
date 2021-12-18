@@ -8,11 +8,14 @@ class EventManager {
     this.listeners.set(object, event);
   }
 
+  public unsubsribe(object: any) {
+    this.listeners.delete(object);
+  }
+
   public notify(event: string, data: any) {
     this.listeners.forEach((value, key) => {
       if (value === event) {
         key.notify(event, data);
-        console.log(key);
       }
     });
   }

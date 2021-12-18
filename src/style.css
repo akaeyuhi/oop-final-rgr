@@ -103,6 +103,10 @@ td {
   transition: all 0.25s;
 }
 
+th {
+  cursor: pointer;
+}
+
 tr:hover,
 th:hover {
   color: crimson;
