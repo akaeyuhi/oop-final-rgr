@@ -1,8 +1,8 @@
-import {IRow, Row} from './Row';
-import {Cell} from './Cell';
+import { IRow, Row } from './Row';
+import { Cell } from './Cell';
 import DataCell from './DataCell';
 
-export default class DataRow extends Row implements IRow{
+export default class DataRow extends Row implements IRow {
   cells: Cell[] = [];
 
   constructor(cells: string[]) {

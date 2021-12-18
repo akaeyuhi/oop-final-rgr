@@ -1,13 +1,13 @@
 import FirstRow from '../components/FirstRow';
-import {Row} from '../components/Row';
+import { Row } from '../components/Row';
 import DataRow from '../components/DataRow';
 import em from '../components/EventManager';
 
 export interface ITable {
-  notify(event: string, data: string)
+  notify(event: string, data: string);
 }
 
-export class Table implements ITable{
+export class Table implements ITable {
   static instance: Table | null = null;
   private readonly mountSelector: string | undefined;
   private table: Element | null | undefined;
@@ -30,7 +30,7 @@ export class Table implements ITable{
     } else return this.instance;
   }
 
-  public notify(event: string, data: string, ): void {
+  public notify(event: string, data: string): void {
     this.rawText = data;
     this.generateRows();
     this.setURL();

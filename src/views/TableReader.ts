@@ -1,11 +1,10 @@
 import em from '../components/EventManager';
 
 export interface IReader {
-  notify(event: string),
+  notify(event: string);
 }
 
-
-export class TableReader implements IReader{
+export class TableReader implements IReader {
   private element: Element | null = document.querySelector('.reader');
   private root: Element | null = document.querySelector('.reader-container');
   private reader: FileReader = new FileReader();

@@ -1,15 +1,15 @@
-import {ICell} from './Cell';
+import { ICell } from './Cell';
 import NullCell from './NullCell';
 
 export interface IRow {
-  cells: ICell[],
-  parseCells(): any,
-  render(): string,
-  pushNullCell(): void,
-  textCells: string[]
+  cells: ICell[];
+  parseCells(): any;
+  render(): string;
+  pushNullCell(): void;
+  textCells: string[];
 }
 
-export abstract class Row implements IRow{
+export abstract class Row implements IRow {
   abstract cells: ICell[];
   protected rawCells: string[];
 

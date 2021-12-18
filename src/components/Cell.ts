@@ -1,9 +1,9 @@
 export interface ICell {
-  data: any,
-  render(): string
+  data: any;
+  render(): string;
 }
 
-export abstract class Cell implements ICell{
+export abstract class Cell implements ICell {
   data: any;
 
   protected constructor(data: any) {

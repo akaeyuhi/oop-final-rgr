@@ -1,8 +1,8 @@
-import {IRow, Row} from './Row';
-import {ICell} from './Cell';
+import { IRow, Row } from './Row';
+import { ICell } from './Cell';
 import SortCell from './SortCell';
 
-export default class FirstRow extends Row implements IRow{
+export default class FirstRow extends Row implements IRow {
   cells: ICell[] = [];
 
   constructor(row: string[]) {

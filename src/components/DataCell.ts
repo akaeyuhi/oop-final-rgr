@@ -1,6 +1,6 @@
-import {Cell, ICell} from './Cell';
+import { Cell, ICell } from './Cell';
 
-export default class DataCell extends Cell implements ICell{
+export default class DataCell extends Cell implements ICell {
   constructor(data: string) {
     super(data);
   }

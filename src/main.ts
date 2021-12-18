@@ -1,5 +1,5 @@
-import {ITable, Table} from './views/Table';
-import {IReader, TableReader} from './views/TableReader';
+import { ITable, Table } from './views/Table';
+import { IReader, TableReader } from './views/TableReader';
 import './style.css';
 import em from './components/EventManager';
 

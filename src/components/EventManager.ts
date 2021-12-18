@@ -1,10 +1,10 @@
-import {IReader} from '../views/TableReader';
-import {ITable} from '../views/Table';
+import { IReader } from '../views/TableReader';
+import { ITable } from '../views/Table';
 
 interface IEE {
-  subscribe(object: ITable | IReader, event: string),
-  unsubscribe(object: ITable | IReader),
-  notify(event: string, data: any),
+  subscribe(object: ITable | IReader, event: string);
+  unsubscribe(object: ITable | IReader);
+  notify(event: string, data: any);
 }
 
 class EventManager {
